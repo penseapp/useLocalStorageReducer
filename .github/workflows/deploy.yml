@@ -1,0 +1,175 @@
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build uselocalstorage react frontend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord notification - start build
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        with:
+          severity: info
+          text: ${{github.repository}} - ${{github.workflow}}
+          details: "- **Pipeline:** https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
+          webhookUrl: ${{ secrets.DISCORD_CHANNEL_WEBHOOK }}
+
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: Install Dependencies
+        run: npm run i-all
+
+      - name: Check lint
+        run: yarn lint
+
+      # - name: Check tests
+      #   run: yarn test
+
+      - name: Build
+        run: npm run build:all
+
+      - name: "Automated Version Bump"
+        uses: "phips28/gh-action-bump-version@master"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          skip-tag: "true"
+
+      - name: Generate dist artifact for package
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist-folder
+          path: dist/**/*
+
+      - name: Archive playground Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: playground-artifact
+          path: |
+            ./playground/build
+            ./playground/firebase.json
+            ./playground/.firebaserc
+          if-no-files-found: error
+
+      - name: Discord notification - finished build (Success)
+        if: success()
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        with:
+          severity: success
+          description: Finished the build pipeline, starting deploys
+          webhookUrl: ${{ secrets.DISCORD_CHANNEL_WEBHOOK }}
+
+      - name: Discord notification - finished build (error)
+        if: failure()
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        with:
+          severity: error
+          description: Build uselocalstorage react frontend failed
+          webhookUrl: ${{ secrets.DISCORD_CHANNEL_WEBHOOK }}
+
+      - name: Discord notification - finished build (cancelled)
+        if: cancelled()
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        with:
+          severity: warn
+          description: Build uselocalstorage react frontend cancelled
+          webhookUrl: ${{ secrets.DISCORD_CHANNEL_WEBHOOK }}
+
+  publish:
+    name: Generates new release and publish
+    needs: [build]
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist-folder
+          path: dist
+
+      - name: Publish on NPM
+        uses: mikeal/merge-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: release on Github
+        uses: rymndhng/release-on-push-action@master
+        with:
+          bump_version_scheme: patch
+
+      - name: Notify discord
+        if: success()
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        with:
+          severity: success
+          description: Deploy finished - new release deployed
+          details: |
+            **- Tag name:** ${{ steps.release.outputs.tag_name }}
+            **- Release version:** ${{ steps.release.outputs.version }}
+          webhookUrl: ${{ secrets.DISCORD_CHANNEL_WEBHOOK }}
+
+      - name: Discord notification - Github generated release (error)
+        if: failure()
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        with:
+          severity: error
+          description: Github generated release failed
+          webhookUrl: ${{ secrets.DISCORD_CHANNEL_WEBHOOK }}
+
+      - name: Discord notification - Github generated release (cancelled)
+        if: cancelled()
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        with:
+          severity: warn
+          description: Github generated release cancelled
+          webhookUrl: ${{ secrets.DISCORD_CHANNEL_WEBHOOK }}
+
+  deploy-firebase:
+    name: Deploy on Firebase
+    needs: [publish]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Playground Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: playground-artifact
+
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy
+        env:
+          FIREBASE_TOKEN: ${{ secrets.USELOCALSTORAGE_FIREBASE_TOKEN }}
+
+      - name: Discord notification - deploy (success)
+        if: success()
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        with:
+          severity: info
+          description: Deploy finished - uselocalstorage
+          webhookUrl: ${{ secrets.DISCORD_CHANNEL_WEBHOOK }}
+
+      - name: Discord notification - deploy (error)
+        if: failure()
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        with:
+          severity: error
+          description: Deploy failed
+          webhookUrl: ${{ secrets.DISCORD_CHANNEL_WEBHOOK }}
+
+      - name: Discord notification - deploy (cancelled)
+        if: cancelled()
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        with:
+          severity: warn
+          description: Deploy cancelled
+          webhookUrl: ${{ secrets.DISCORD_CHANNEL_WEBHOOK }}

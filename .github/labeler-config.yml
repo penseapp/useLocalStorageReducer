@@ -1,0 +1,28 @@
+# Add 'chore' label to any root file changes
+chore:
+  - ./*
+
+# Add 'test' label to any change to *.spec.js files within the source dir
+test:
+  - src/**/*.test.*
+
+# Related to github actions pipelines
+pipeline:
+  - .github/**/*
+
+# Related to IDE
+lint:
+  - .vscode/**/*
+  - .prettierrc.js
+  - .eslintignore
+  - .editorconfig
+  - commitlint.config.js
+
+# Related to Docs
+docs:
+  - ./**/*.md
+
+# Docker
+docker:
+  - Dockerfile.*
+  - docker*
