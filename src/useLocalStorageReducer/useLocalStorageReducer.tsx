@@ -10,12 +10,12 @@ import ExpiredStorage from "expired-storage";
 
 export function useLocalStorageReducer<I>(
   key: string,
-  reducer: Reducer<any, any>,
+  reducer: Reducer<unknown, unknown>,
   initialState: I,
   expire: number | boolean = 60 * 30
 ): [
-  ReducerState<Reducer<any, any>>,
-  Dispatch<ReducerAction<Reducer<any, any>>>
+  ReducerState<Reducer<unknown, unknown>>,
+  Dispatch<ReducerAction<Reducer<unknown, unknown>>>
 ] {
   const [state, dispatch] = useReducer(
     reducer,
@@ -23,12 +23,14 @@ export function useLocalStorageReducer<I>(
     (initialState) => {
       try {
         const expiredStorage = new ExpiredStorage();
+
         // Get from local storage by key
-
         const item = expiredStorage.getItem(key);
-        // Parse stored json or if none return initialValue
 
-        return item ? JSON.parse(item) : JSON.parse(initialState);
+        const parsedInitialValue = JSON.stringify(initialState);
+
+        // Parse stored json or if none return initialValue
+        return item ? JSON.parse(item) : JSON.parse(parsedInitialValue);
       } catch (error) {
         // If error also return initialValue
         console.error(error);
