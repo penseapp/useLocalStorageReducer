@@ -1,17 +1,17 @@
-# useLocalStorage
+# useLocalStorageReducer
 
 <!-- <div align="center"> -->
 
 <!-- ![npm](https://img.shields.io/npm/dt/nodejs-health-checker?style=for-the-badge)<br> -->
 
-[![npm version](https://badge.fury.io/js/%40penseapp%2Fuselocalstorage.svg)](https://badge.fury.io/js/%40penseapp%2Fuselocalstorage)
-[![Tag Status](https://img.shields.io/github/tag/penseapp/uselocalstorage)](https://img.shields.io/github/v/tag/penseapp/uselocalstorage)
-[![License Status](https://img.shields.io/github/license/penseapp/uselocalstorage)](https://img.shields.io/github/license/penseapp/uselocalstorage)
-[![Issues Status](https://img.shields.io/github/issues/penseapp/uselocalstorage)](https://img.shields.io/github/issues/penseapp/uselocalstorage)
+[![npm version](https://badge.fury.io/js/%40penseapp%2FuseLocalStorageReducer.svg)](https://badge.fury.io/js/%40penseapp%2FuseLocalStorageReducer)
+[![Tag Status](https://img.shields.io/github/tag/penseapp/useLocalStorageReducer)](https://img.shields.io/github/v/tag/penseapp/useLocalStorageReducer)
+[![License Status](https://img.shields.io/github/license/penseapp/useLocalStorageReducer)](https://img.shields.io/github/license/penseapp/useLocalStorageReducer)
+[![Issues Status](https://img.shields.io/github/issues/penseapp/useLocalStorageReducer)](https://img.shields.io/github/issues/penseapp/useLocalStorageReducer)
 
-<!-- ![test](https://github.com/penseapp/uselocalstorage/workflows/test/badge.svg?branch=master) -->
-<!-- ![GitHub Workflow Status (event)](https://img.shields.io/github/workflow/status/@penseapp/uselocalstorage/test) -->
-<!-- [![Coverage Status](https://coveralls.io/repos/github/penseapp/uselocalstorage/badge.svg?branch=master)](https://coveralls.io/github/penseapp/uselocalstorage?branch=master) -->
+<!-- ![test](https://github.com/penseapp/useLocalStorageReducer/workflows/test/badge.svg?branch=master) -->
+<!-- ![GitHub Workflow Status (event)](https://img.shields.io/github/workflow/status/@penseapp/useLocalStorageReducer/test) -->
+<!-- [![Coverage Status](https://coveralls.io/repos/github/penseapp/useLocalStorageReducer/badge.svg?branch=master)](https://coveralls.io/github/penseapp/useLocalStorageReducer?branch=master) -->
 
 <!-- </div> -->
 
@@ -24,16 +24,16 @@ The API is the same, and you'll see no difference between them!
 
 ![Peek 2021-02-28 17-40](https://user-images.githubusercontent.com/5152197/109432913-444be780-79ec-11eb-87ad-bcc3d1204bb8.gif)
 
-You can try this live version on: https://penseapp-uselocalstorage.web.app/
+You can try this live version on: https://penseapp-useLocalStorageReducer.web.app/
 
 ## TL;DR
 
 ```tsx
-import { useLocalStorage } from "@penseapp/uselocalstorage";
+import { useLocalStorageReducer } from "@penseapp/useLocalStorageReducer";
 
-const [state, setState] = useLocalStorage<string>(
+const [state, setState] = useLocalStorageReducer<string>(
   "keyName",
-  "useLocalStorage",
+  "useLocalStorageReducer",
   false // or a number
 );
 ```
@@ -41,13 +41,13 @@ const [state, setState] = useLocalStorage<string>(
 ## How to install
 
 ```sh
-yarn add @penseapp/uselocalstorage
+yarn add @penseapp/useLocalStorageReducer
 ```
 
 or
 
 ```sh
-npm i @penseapp/uselocalstorage
+npm i @penseapp/useLocalStorageReducer
 ```
 
 ## How to use
@@ -55,19 +55,19 @@ npm i @penseapp/uselocalstorage
 Import the lib on your component
 
 ```tsx
-import { useLocalStorage } from "@penseapp/uselocalstorage";
+import { useLocalStorageReducer } from "@penseapp/useLocalStorageReducer";
 ```
 
-Simple change the `useState` to `useLocalStorage` on any hooks and it's done.
+Simple change the `useState` to `useLocalStorageReducer` on any hooks and it's done.
 Now you can reload your browser and your state will maintein
 
 ```diff
 import React, { useState } from "react";
-import { useLocalStorage } from "@penseapp/uselocalstorage";
+import { useLocalStorageReducer } from "@penseapp/useLocalStorageReducer";
 
 const App: React.FC = () => {
 -  const [state, setstate] = useState<boolean>(false);
-+  const [state, setstate] = useLocalStorage<boolean>('keyName', false);
++  const [state, setstate] = useLocalStorageReducer<boolean>('keyName', false);
 
   return (
     <>
@@ -100,17 +100,30 @@ You have two options:
 
 ```tsx
 // Never expires (infinite)
-const [state, setstate] = useLocalStorage<boolean>('keyName', 'defaultValue', false);
-
+const [state, setstate] = useLocalStorageReducer<boolean>(
+  "keyName",
+  "defaultValue",
+  false
+);
 
 // Expires in 1 minute
-const [state, setstate] = useLocalStorage<boolean>('keyName', 'defaultValue', 60);
-
+const [state, setstate] = useLocalStorageReducer<boolean>(
+  "keyName",
+  "defaultValue",
+  60
+);
 
 // Expires in 1 hour
-const [state, setstate] = useLocalStorage<boolean>('keyName', 'defaultValue', 60 * 60 * 1); // 3600 seconds
-
+const [state, setstate] = useLocalStorageReducer<boolean>(
+  "keyName",
+  "defaultValue",
+  60 * 60 * 1
+); // 3600 seconds
 
 // Expires in 12 hours
-const [state, setstate] = useLocalStorage<boolean>('keyName', 'defaultValue', 60 * 60 * 12); // 43200 seconds
+const [state, setstate] = useLocalStorageReducer<boolean>(
+  "keyName",
+  "defaultValue",
+  60 * 60 * 12
+); // 43200 seconds
 ```

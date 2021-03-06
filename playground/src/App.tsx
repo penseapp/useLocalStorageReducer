@@ -1,117 +1,48 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import "./App.css";
-import { useLocalStorage } from "./component-lib";
+import { ExampleContext } from "./ExampleContext/ExampleContext";
+import { ExampleTypesEnum } from "./ExampleContext/ExampleInterface";
 
 const App: React.FC = () => {
-  const [isDirty, setIsDirty] = useState<boolean>(false);
-  const [useStateEx, setUseStateEx] = useState<string>("useState");
-  const [expireTime, setExpireTime] = useLocalStorage<false | number>(
-    "expireTime",
-    60
-  );
-  const [shouldExpire, setShouldExpire] = useLocalStorage<boolean>(
-    "shouldExpire",
-    true
-  );
-  const [useLocalStorageEx, setUseLocalStorageEx] = useLocalStorage<string>(
-    "keyName",
-    "useLocalStorage",
-    shouldExpire ? expireTime : false
-  );
+  const { stateExample, dispatchExample } = useContext(ExampleContext);
 
-  const handleUseStateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUseStateEx(event.target.value);
-  };
-
-  const handleUseLocalStorageEx = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setUseLocalStorageEx(event.target.value);
-    setIsDirty(true);
+  const handleFieldUpdate = (key: string, newValue: string) => {
+    dispatchExample({
+      type: ExampleTypesEnum.UPDATE_STATE,
+      newState: {
+        ...stateExample,
+        [key]: newValue,
+      },
+    });
   };
 
   return (
     <div className="App">
       <header className="App-header">
         <>
-          <h4>
-            {isDirty ? (
-              <>You changed the useLocalStorageEx hook, reload the browser!</>
-            ) : (
-              <>Write text on the inputs below and reload the browser</>
-            )}
-          </h4>
+          <h4>Edit the fields and reload the browser</h4>
           <br />
         </>
 
         <div className="row">
           <div className="container">
-            <div className="container">
-              <label className="ignore" htmlFor="useStateEx">
-                useState hook
-              </label>
-              <input
-                id="useStateEx"
-                onChange={handleUseStateChange}
-                defaultValue={useStateEx}
-                value={useStateEx}
-              />
-            </div>
-
-            <div className="container">
-              <label htmlFor="useLocalStorageEx">useLocalStorage hook</label>
-              <input
-                id="useLocalStorageEx"
-                onChange={handleUseLocalStorageEx}
-                defaultValue={useLocalStorageEx}
-                value={useLocalStorageEx}
-              />
-            </div>
+            {Object.entries(stateExample).map(([key, field]) => (
+              <div className="container" style={{ marginBottom: "1em" }}>
+                <label className="ignore" htmlFor={key}>
+                  {key}
+                </label>
+                <input
+                  id={key}
+                  onChange={(e) => handleFieldUpdate(key, e.target.value)}
+                  defaultValue={field}
+                  value={field}
+                />
+              </div>
+            ))}
           </div>
           <div className="container">
             <div className="container">
-              <div>
-                <input
-                  type="radio"
-                  id="expire"
-                  name="expireTime"
-                  checked={shouldExpire}
-                  value={"expire"}
-                  onChange={() => setShouldExpire(true)}
-                ></input>
-                <label htmlFor="louie">I want the state to expire</label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  id="dont-expire"
-                  name="expireTime"
-                  checked={!shouldExpire}
-                  value="dont-expire"
-                  onChange={() => setShouldExpire(false)}
-                ></input>
-                <label htmlFor="louie">I don't want the state to expire</label>
-              </div>
-            </div>
-
-            {/* <label htmlFor="expireTime">Time in seconds to expire</label> */}
-            <div className="container">
-              <label htmlFor="expireTime">
-                Your state will expire in: {expireTime} seconds
-              </label>
-              <input
-                disabled={!shouldExpire}
-                id="expireTime"
-                type="number"
-                min="1"
-                step="10"
-                onChange={(e) => setExpireTime(parseInt(e.target.value))}
-                defaultValue={expireTime.toString()}
-                value={expireTime.toString()}
-              />
-              {/* <caption style={{}}>
-                Your state will expire in: {expireTime} seconds
-              </caption> */}
+              <pre>{JSON.stringify(stateExample, undefined, 2)}</pre>
             </div>
           </div>
         </div>

@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Build uselocalstorage react frontend
+    name: Build useLocalStorageReducer react frontend
     runs-on: ubuntu-latest
     steps:
       - name: Discord notification - start build
@@ -68,7 +68,7 @@ jobs:
         uses: rjstone/discord-webhook-notify@v1.0.4
         with:
           severity: error
-          description: Build uselocalstorage react frontend failed
+          description: Build useLocalStorageReducer react frontend failed
           webhookUrl: ${{ secrets.DISCORD_CHANNEL_WEBHOOK }}
 
       - name: Discord notification - finished build (cancelled)
@@ -76,7 +76,7 @@ jobs:
         uses: rjstone/discord-webhook-notify@v1.0.4
         with:
           severity: warn
-          description: Build uselocalstorage react frontend cancelled
+          description: Build useLocalStorageReducer react frontend cancelled
           webhookUrl: ${{ secrets.DISCORD_CHANNEL_WEBHOOK }}
 
   publish:
@@ -148,14 +148,14 @@ jobs:
         with:
           args: deploy
         env:
-          FIREBASE_TOKEN: ${{ secrets.USELOCALSTORAGE_FIREBASE_TOKEN }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
       - name: Discord notification - deploy (success)
         if: success()
         uses: rjstone/discord-webhook-notify@v1.0.4
         with:
           severity: info
-          description: Deploy finished - uselocalstorage
+          description: Deploy finished - useLocalStorageReducer
           webhookUrl: ${{ secrets.DISCORD_CHANNEL_WEBHOOK }}
 
       - name: Discord notification - deploy (error)

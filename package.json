@@ -1,7 +1,7 @@
 {
-  "name": "@penseapp/uselocalstorage",
-  "version": "1.0.20",
-  "description": "A react hooks to use useState with localStorage persist",
+  "name": "@penseapp/uselocalstoragereducer",
+  "version": "1.0.0",
+  "description": "A react hooks to use useReducer with localStorage persist",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "scripts": {
@@ -24,7 +24,7 @@
     "react",
     "hooks",
     "localStorage",
-    "useState"
+    "useReducer"
   ],
   "author": "@joaomantovani",
   "license": "MIT",
