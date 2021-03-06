@@ -13,7 +13,9 @@
 <!-- ![GitHub Workflow Status (event)](https://img.shields.io/github/workflow/status/@penseapp/useLocalStorageReducer/test) -->
 <!-- [![Coverage Status](https://coveralls.io/repos/github/penseapp/useLocalStorageReducer/badge.svg?branch=master)](https://coveralls.io/github/penseapp/useLocalStorageReducer?branch=master) -->
 
-<!-- </div> -->
+<!-- </div> -->!
+[Peek 2021-03-06 15-36](https://user-images.githubusercontent.com/5152197/110217257-d131ed80-7e91-11eb-8f57-cb23404c52d6.gif)
+
 
 This is a react hook that allows you to use the power of browser localstorage
 and the useState react hook combined!
