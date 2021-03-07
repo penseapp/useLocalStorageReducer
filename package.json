@@ -20,6 +20,11 @@
     "clean": "rm -rf ./node_modules && rm package-lock.json",
     "clean:all": "npm-run-all --parallel clean clean:playground"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/penseapp/useLocalStorageReducer.git"
+  },
+  "homepage": "https://penseapp-uselocalstoragereduce.web.app",
   "keywords": [
     "react",
     "hooks",

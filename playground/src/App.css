@@ -8,6 +8,25 @@
 }
 
 .App-header {
+  position: absolute;
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.App-header img {
+  margin: 1em;
+  width: 160px;
+}
+
+.App-body {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
