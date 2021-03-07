@@ -31,7 +31,16 @@ You can try this live version on: https://penseapp-uselocalstoragereduce.web.app
 ```tsx
 import { useLocalStorageReducer } from "@penseapp/useLocalStorageReducer";
 
-const [stateExample, dispatchExample] = useLocalStorageReducer(
+export interface ExampleContextInterface {
+  field1: string;
+}
+
+export type ExampleAction = UPDATE_STATE; // Your reducers used in switch
+
+const [stateExample, dispatchExample] = useLocalStorageReducer<
+  ExampleContextInterface,
+  ExampleAction
+>(
   "localStorage-key",
   Reducer,
   exampleInitialState,
@@ -71,7 +80,9 @@ Now you can reload your browser and your state will maintein
 
 const App: React.FC = () => {
 -  const [state, setstate] = useReducer(reducer, initialState);
-+  const [state, setstate] = useLocalStorageReducer<boolean>('keyName', reducer, initialState, false);
++  const [state, setstate] = useLocalStorageReducer<I, A>('keyName', reducer, initialState, false);
+// I: Your object
+// A: Your action
 
   return (
     <>

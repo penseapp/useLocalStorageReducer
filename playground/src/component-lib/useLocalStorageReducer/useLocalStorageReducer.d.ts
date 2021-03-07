@@ -1,11 +1,8 @@
-import React, { Reducer, ReducerState } from "react";
-export declare function useLocalStorageReducer<INTERFACE, ACTION>(
+import { Reducer, ReducerState, Dispatch, ReducerAction } from "react";
+export declare function useLocalStorageReducer<I, A>(
   key: string,
-  reducer: Reducer<INTERFACE, React.Dispatch<ACTION>>,
-  initialState: INTERFACE,
+  reducer: Reducer<I, A>,
+  initialState: I,
   expire?: number | boolean
-): [
-  ReducerState<Reducer<INTERFACE, ACTION>>,
-  React.Dispatch<React.Dispatch<ACTION>>
-];
+): [ReducerState<Reducer<I, A>>, Dispatch<ReducerAction<Reducer<I, A>>>];
 export default useLocalStorageReducer;
