@@ -11,8 +11,9 @@ function useLocalStorageReducer(key, reducer, initialState, expire) {
         var expiredStorage = new ExpiredStorage();
         // Get from local storage by key
         var item = expiredStorage.getItem(key);
+        var parsedInitialValue = JSON.stringify(initialState);
         // Parse stored json or if none return initialValue
-        return item ? JSON.parse(item) : JSON.parse(initialState);
+        return item ? JSON.parse(item) : JSON.parse(parsedInitialValue);
       } catch (error) {
         // If error also return initialValue
         console.error(error);

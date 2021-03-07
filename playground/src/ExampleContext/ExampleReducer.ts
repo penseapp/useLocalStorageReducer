@@ -5,7 +5,7 @@ import {
 } from "./ExampleInterface";
 import { updateStateAction } from "./actions/updateStateAction";
 
-function updateStateReducer(
+function ExampleReducer(
   state: ExampleContextInterface,
   action: ExampleAction
 ): ExampleContextInterface {
@@ -18,4 +18,4 @@ function updateStateReducer(
   }
 }
 
-export default updateStateReducer;
+export default ExampleReducer;

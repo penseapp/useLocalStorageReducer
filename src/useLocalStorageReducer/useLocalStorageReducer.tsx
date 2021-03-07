@@ -1,4 +1,4 @@
-import {
+import React, {
   useEffect,
   useReducer,
   Reducer,
@@ -8,15 +8,12 @@ import {
 } from "react";
 import ExpiredStorage from "expired-storage";
 
-export function useLocalStorageReducer<I>(
+export function useLocalStorageReducer<INTERFACE, ACTION>(
   key: string,
-  reducer: Reducer<unknown, unknown>,
-  initialState: I,
+  reducer: Reducer<INTERFACE, React.Dispatch<ACTION>>,
+  initialState: INTERFACE,
   expire: number | boolean = 60 * 30
-): [
-  ReducerState<Reducer<unknown, unknown>>,
-  Dispatch<ReducerAction<Reducer<unknown, unknown>>>
-] {
+): [ReducerState<R>, Dispatch<ReducerAction<R>>] {
   const [state, dispatch] = useReducer(
     reducer,
     initialState,

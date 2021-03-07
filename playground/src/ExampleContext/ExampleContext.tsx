@@ -17,12 +17,10 @@ export const ExampleContext = createContext<ExampleProviderInterface>({
 });
 
 const ExampleProvider: React.FC = ({ children }) => {
-  const [stateExample, dispatchExample] = useLocalStorageReducer(
-    "localStorage-key",
-    Reducer,
-    exampleInitialState,
-    60 * 60
-  );
+  const [stateExample, dispatchExample] = useLocalStorageReducer<
+    ExampleContextInterface,
+    ExampleAction
+  >("localStorage-key", Reducer, exampleInitialState, 60 * 60);
 
   const globals = {
     stateExample,

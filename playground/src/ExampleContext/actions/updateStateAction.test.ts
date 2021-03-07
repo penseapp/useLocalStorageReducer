@@ -9,7 +9,7 @@ describe("File: ExampleContext", () => {
       scenario,
     ]);
 
-    it.each(eachArr)("Scenario: %s ", async (_, scenario) => {
+    it.each(eachArr)("Scenario: %s", async (_, scenario) => {
       if (typeof scenario === "string") return;
 
       const result = updateStateAction(scenario.state, {
