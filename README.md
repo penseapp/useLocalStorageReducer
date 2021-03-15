@@ -51,13 +51,13 @@ const [stateExample, dispatchExample] = useLocalStorageReducer<
 ## How to install
 
 ```sh
-yarn add @penseapp/useLocalStorageReducer
+yarn add @penseapp/uselocalstoragereducer
 ```
 
 or
 
 ```sh
-npm i @penseapp/useLocalStorageReducer
+npm i @penseapp/uselocalstoragereducer
 ```
 
 ## How to use
