@@ -153,3 +153,23 @@ const [state, setstate] = useLocalStorageReducer<boolean>(
   60 * 60 * 12
 ); // 43200 seconds
 ```
+
+## Running local
+
+Git clone this repository
+
+```shell
+git clone git@github.com:penseapp/useLocalStorageReducer.git
+```
+
+Go to repository folder
+
+```shell
+cd useLocalStorageReducer
+```
+
+Install and start playground repository
+
+```shell
+yarn && yarn install:playground && yarn start:playground
+```
