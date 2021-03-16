@@ -15,7 +15,7 @@
 
 <!-- </div> -->
 
-This is a react hook that allows you to use the power of browser localstorage
+A react hook that allows you to use the power of browser localstorage
 and the useReducer react hook combined!
 
 The API is the same, and you'll see no difference between them!
