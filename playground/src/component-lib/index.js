@@ -1,38 +1,34 @@
-/* eslint-disable */
-import { useReducer, useEffect } from 'react';
-import ExpiredStorage from 'expired-storage';
-
-function useLocalStorageReducer(key, reducer, initialState, expire) {
-    if (expire === void 0) { expire = 60 * 30; }
-    var _a = useReducer(reducer, initialState, function (initialState) {
+import { useReducer, useEffect } from "react";
+import ExpiredStorage from "expired-storage";
+function useLocalStorageReducer(o, e, r, t) {
+  void 0 === t && (t = 1800);
+  var r = useReducer(e, r, function (r) {
+      try {
+        var e = new ExpiredStorage().getItem(o),
+          t = JSON.stringify(r);
+        return e ? JSON.parse(e) : JSON.parse(t);
+      } catch (e) {
+        return console.error(e), r;
+      }
+    }),
+    a = r[0],
+    r = r[1];
+  return (
+    useEffect(
+      function () {
         try {
-            var expiredStorage = new ExpiredStorage();
-            // Get from local storage by key
-            var item = expiredStorage.getItem(key);
-            var parsedInitialValue = JSON.stringify(initialState);
-            // Parse stored json or if none return initialValue
-            return item ? JSON.parse(item) : JSON.parse(parsedInitialValue);
+          var e = new ExpiredStorage();
+          !1 !== t && "number" == typeof t
+            ? e.setItem(o, JSON.stringify(a), t)
+            : window.localStorage.setItem(o, JSON.stringify(a));
+        } catch (e) {
+          console.error(e);
         }
-        catch (error) {
-            // If error also return initialValue
-            console.error(error);
-            return initialState;
-        }
-    }), state = _a[0], dispatch = _a[1];
-    useEffect(function () {
-        try {
-            var expiredStorage = new ExpiredStorage();
-            expire !== false && typeof expire === "number"
-                ? expiredStorage.setItem(key, JSON.stringify(state), expire)
-                : window.localStorage.setItem(key, JSON.stringify(state));
-        }
-        catch (error) {
-            // TODO: A more advanced implementation would handle the error case
-            console.error(error);
-        }
-        localStorage.setItem(key, JSON.stringify(state));
-    }, [expire, key, state]);
-    return [state, dispatch];
+        localStorage.setItem(o, JSON.stringify(a));
+      },
+      [t, o, a]
+    ),
+    [a, r]
+  );
 }
-
 export { useLocalStorageReducer };
