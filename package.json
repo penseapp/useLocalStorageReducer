@@ -61,9 +61,6 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
-  "files": [
-    "dist"
-  ],
   "dependencies": {
     "expired-storage": "^1.0.2"
   },
