@@ -43,7 +43,9 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: dist-folder
-          path: dist/**/*
+          path: |
+            dist/**/*
+            package.json
 
       - name: Archive playground Artifact
         uses: actions/upload-artifact@master
