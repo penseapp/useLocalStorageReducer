@@ -2,7 +2,7 @@ import React, { createContext } from "react";
 import Reducer from "./ExampleReducer";
 import { exampleInitialState } from "./ExampleInitializer";
 import { ExampleContextInterface, ExampleAction } from "./ExampleInterface";
-import { useLocalStorageReducer } from "../component-lib";
+import { useLocalStorageReducer } from "../component-lib/";
 
 export type ExampleDispatchType = React.Dispatch<ExampleAction>;
 
