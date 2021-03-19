@@ -2,6 +2,7 @@ import typescript from "rollup-plugin-typescript2";
 import del from "rollup-plugin-delete";
 import { uglify } from "rollup-plugin-uglify";
 import pkg from "./package.json";
+import minify from "rollup-plugin-babel-minify";
 
 export default [
   {
@@ -19,6 +20,7 @@ export default [
       del({ targets: ["dist/*", "playground/src/component-lib"] }),
       typescript(),
       uglify(),
+      minify(),
     ],
     external: Object.keys(pkg.peerDependencies || {}),
   },

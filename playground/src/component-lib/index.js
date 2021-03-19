@@ -1,34 +1,34 @@
 import { useReducer, useEffect } from "react";
 import ExpiredStorage from "expired-storage";
-function useLocalStorageReducer(o, e, r, t) {
-  void 0 === t && (t = 1800);
-  var r = useReducer(e, r, function (r) {
+function useLocalStorageReducer(b, c, d, f) {
+  void 0 === f && (f = 1800);
+  var d = useReducer(c, d, function (a) {
       try {
-        var e = new ExpiredStorage().getItem(o),
-          t = JSON.stringify(r);
-        return e ? JSON.parse(e) : JSON.parse(t);
-      } catch (e) {
-        return console.error(e), r;
+        var c = new ExpiredStorage().getItem(b),
+          d = JSON.stringify(a);
+        return c ? JSON.parse(c) : JSON.parse(d);
+      } catch (b) {
+        return console.error(b), a;
       }
     }),
-    a = r[0],
-    r = r[1];
+    g = d[0],
+    d = d[1];
   return (
     useEffect(
       function () {
         try {
-          var e = new ExpiredStorage();
-          !1 !== t && "number" == typeof t
-            ? e.setItem(o, JSON.stringify(a), t)
-            : window.localStorage.setItem(o, JSON.stringify(a));
-        } catch (e) {
-          console.error(e);
+          var a = new ExpiredStorage();
+          !1 !== f && "number" == typeof f
+            ? a.setItem(b, JSON.stringify(g), f)
+            : window.localStorage.setItem(b, JSON.stringify(g));
+        } catch (a) {
+          console.error(a);
         }
-        localStorage.setItem(o, JSON.stringify(a));
+        localStorage.setItem(b, JSON.stringify(g));
       },
-      [t, o, a]
+      [f, b, g]
     ),
-    [a, r]
+    [g, d]
   );
 }
 export { useLocalStorageReducer };
