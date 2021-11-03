@@ -1,25 +1,11 @@
 {
   "name": "@penseapp/uselocalstoragereducer",
-  "version": "1.1.8",
+  "version": "2.0.0",
   "description": "A react hooks to use useReducer with localStorage persist",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "FORCE_COLOR=true eslint ./**/*.{ts,tsx} --max-warnings=0 --format=codeframe",
-    "prettier": "FORCE_COLOR=true prettier --write './**/*.{jsx,tsx,ts,js,md}' && prettier --write './README.md'",
-    "i-all": "npm i && cd playground && npm i",
-    "build": "rollup -c",
-    "build-watch": "rollup -c -w",
-    "build:all": "npm-run-all build build:playground",
-    "start-playground": "cd playground && npm run start",
-    "build:playground": "cd playground && npm run build",
-    "install:playground": "cd playground && npm i-all",
-    "dev": "npm-run-all --parallel build-watch start-playground",
-    "clean:playground": "rm -rf ./playground/node_modules && rm /playground/package-lock.json",
-    "clean": "rm -rf ./node_modules && rm package-lock.json",
-    "clean:all": "npm-run-all --parallel clean clean:playground"
-  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "private": false,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/penseapp/useLocalStorageReducer.git"
@@ -31,8 +17,28 @@
     "localStorage",
     "useReducer"
   ],
+  "files": [
+    "dist/**/*"
+  ],
   "author": "@joaomantovani",
   "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "FORCE_COLOR=true eslint ./**/*.{ts,tsx} --max-warnings=0 --format=codeframe",
+    "prettier": "FORCE_COLOR=true prettier --write './**/*.{jsx,tsx,ts,js,md}' && prettier --write './README.md'",
+    "i-all": "npm i && cd playground && npm i",
+    "build": "rollup -c",
+    "build2": "tsc",
+    "build-watch": "rollup -c -w",
+    "build:all": "npm-run-all build build:playground",
+    "start-playground": "cd playground && npm run start",
+    "build:playground": "cd playground && npm run build",
+    "install:playground": "cd playground && npm i-all",
+    "dev": "npm-run-all --parallel build-watch start-playground",
+    "clean:playground": "rm -rf ./playground/node_modules && rm /playground/package-lock.json",
+    "clean": "rm -rf ./node_modules && rm package-lock.json",
+    "clean:all": "npm-run-all --parallel clean clean:playground"
+  },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
@@ -54,17 +60,13 @@
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-prettier": "^2.1.0",
     "rollup-plugin-typescript2": "^0.30.0",
-    "rollup-plugin-uglify": "^6.0.4",
+    "rollup-plugin-uglify": "^5.0.2",
     "typescript": "^4.2.2"
   },
   "peerDependencies": {
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
-  "files": [
-    "dist",
-    "package.json"
-  ],
   "dependencies": {
     "expired-storage": "^1.0.2"
   },
