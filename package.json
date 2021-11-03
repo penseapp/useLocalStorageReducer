@@ -30,7 +30,7 @@
     "build": "rollup -c",
     "build2": "tsc",
     "build-watch": "rollup -c -w",
-    "build:all": "npm-run-all build build:playground",
+    "build:all": "npm-run-all build build:playground build2",
     "start-playground": "cd playground && npm run start",
     "build:playground": "cd playground && npm run build",
     "install:playground": "cd playground && npm i-all",
