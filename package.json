@@ -1,6 +1,6 @@
 {
   "name": "@penseapp/uselocalstoragereducer",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A react hooks to use useReducer with localStorage persist",
   "main": "dist/index.js",
   "module": "dist/index.js",
